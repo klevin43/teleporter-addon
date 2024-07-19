@@ -1,8 +1,8 @@
 {
   "format_version": 2,
   "header": {
-    "description": "Teleport addon, like the WayStone mod for pc",
-    "name": "Teleport Addon (WayStone)",
+    "description": "Teleport addon, like the WayStones mod for pc",
+    "name": "Teleport Addon",
     "uuid": "adf511be-c563-43eb-953f-5cad77580f9b",
     "version": [1, 0, 0],
     "min_engine_version": [1, 19, 0]
