@@ -1,0 +1,14 @@
+{
+    "num_mip_levels": 4,
+    "padding": 8,
+    "resource_pack_name": "Lost",
+    "texture_name": "atlas.terrain",
+    "texture_data": {
+        "teleporter": {
+            "textures": "textures/blocks/teleporter"
+        },
+        "active_teleporter": {
+            "textures": "textures/blocks/active_teleporter"
+        }
+    }
+}

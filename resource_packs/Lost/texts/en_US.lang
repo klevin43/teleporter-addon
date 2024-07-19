@@ -1,0 +1,14 @@
+item.ninguem3421:teleporter_gem=Teleporter Gem
+
+tile.ninguem3421:teleporter.name=Teleporter
+tile.ninguem3421:active_teleporter.name=Active Teleporter
+tile.ninguem3421:logged_teleporter.name=Logged Teleporter
+
+ninguem3421.noportalavaible.message=§c§l[!]§r §cNo portal avaible.§r
+ninguem3421.alreadyhaveportalname.message=§c§l[!]§r §cThis portal name has already been set.§r
+ninguem3421.emptyportalname.message=§c§l[!]§r §cEmpty names are invalid.§r
+
+ninguem3421.showportalsform.title=Portals
+
+ninguem3421.addportalform.title=Add portal
+ninguem3421.portalnamefieldtext.text=Portal name

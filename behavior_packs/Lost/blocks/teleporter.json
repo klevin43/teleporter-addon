@@ -1,0 +1,77 @@
+{
+    "format_version": "1.20.40",
+    "minecraft:block": {
+        "description": {
+            "identifier": "ninguem3421:teleporter",
+            "menu_category": {
+                "category": "items"
+            },
+            "states": {
+                "ninguem3421:teleporter_state": [
+                    "inactive",
+                    "active",
+                    "logged"
+                ]
+            }
+        },
+        "permutations": [
+            {
+                "condition": "query.block_state('ninguem3421:teleporter_state') == 'active'",
+                "components": {
+                    "minecraft:geometry": "geometry.active_teleporter",
+                    "minecraft:material_instances": {
+                        "*": {
+                            "render_method": "alpha_test",
+                            "texture": "active_teleporter"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('ninguem3421:teleporter_state') == 'logged'",
+                "components": {
+                    "minecraft:geometry": "geometry.active_teleporter",
+                    "minecraft:material_instances": {
+                        "*": {
+                            "render_method": "alpha_test",
+                            "texture": "active_teleporter"
+                        }
+                    },
+                    "minecraft:light_emission": 6
+                }
+            }
+        ],
+        "components": {
+            "minecraft:geometry": "geometry.teleporter",
+            "minecraft:material_instances": {
+                "*": {
+                    "render_method": "alpha_test",
+                    "texture": "teleporter"
+                }
+            },
+            "minecraft:collision_box": {
+                "origin": [-8, 0, -8],
+                "size": [16, 12, 16]
+            },
+            "minecraft:selection_box": {
+                "origin": [-8, 0, -8],
+                "size": [16, 12, 16]
+            },
+            "minecraft:loot": "loot_tables/blocks/teleporter_block.json",
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.5
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 1.75
+            },
+            "minecraft:map_color": "#6239bd",
+            "minecraft:on_interact": {
+                "target": "self",
+                "event": "dummy"
+            }
+        },
+        "events": {
+            "dummy": {}
+        }
+    }
+}
