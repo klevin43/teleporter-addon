@@ -1,0 +1,5 @@
+The inspiration of this addon was from Waystones mod made for Java Edition.
+
+The teleporter gem item icon included are by https://twitter.com/JoeCreates and were publically released under the CC-BY-SA 3.0 license here: https://opengameart.org/content/roguelikerpg-items.
+
+Wastones mod link: https://www.curseforge.com/minecraft/mc-mods/waystones

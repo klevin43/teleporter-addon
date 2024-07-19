@@ -79,6 +79,12 @@ Teleporter block
   <img src="res/TeleporterBlockCrafting.jpg" width="400" alt="Teleporter Block Crafting">
 </p>
 
+## Aditional credits
+
+The inspiration of this addon was from [Waystones mod](https://www.curseforge.com/minecraft/mc-mods/waystones) made for Java Edition.
+
+The teleporter gem item icon included are by [@JoeCreates](https://twitter.com/JoeCreates) and were publically released under the CC-BY-SA 3.0 license [here](https://opengameart.org/content/roguelikerpg-items).
+
 ## Install all dependencies
 
 ```powershell
