@@ -1,6 +1,5 @@
 import { world, Block, Dimension, Vector3, Player } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
 
 export const TELEPORTER_STATE: string = "ninguem3421:teleporter_state";
 export const TELEPORTER_PROPERTY: string = "ninguem3421:portals";
@@ -100,7 +99,7 @@ export class TeleporterUtils {
                 switch(action) {
                     case AddPortalAction.SUCCESS:
                         let block = dimension.getBlock(location);
-                        if(block === undefined || block.typeId == MinecraftBlockTypes.Air) {
+                        if(block === undefined || block.typeId === "minecraft:air") {
                             pm.removePortalByLocation(location, dimension.id);
                             sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.addnotpossible.message");
                             return;
@@ -146,7 +145,7 @@ export class TeleporterUtils {
             }
             let dimension = world.getDimension(portal.dimensionId);
             let block = dimension.getBlock(portal.location);
-            if(block !== undefined && block.typeId === MinecraftBlockTypes.Air) {
+            if(block !== undefined && block.typeId === "minecraft:air") {
                 pm.removePortalByLocation(portal.location, portal.dimensionId);
                 sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.invalidportal.message");
                 return;
@@ -183,7 +182,7 @@ export class PortalsManager {
     clearInvalidPortals() {
         this.data = this.data.filter(portal => {
             let block = world.getDimension(portal.dimensionId).getBlock(portal.location);
-            return block === undefined || block.typeId !== MinecraftBlockTypes.Air;
+            return block === undefined || block.typeId !== "minecraft:air";
         });
     }
 
