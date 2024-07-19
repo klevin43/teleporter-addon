@@ -9,7 +9,7 @@ products:
 
 # Teleporter Addon
 
-This addon acts like the waystone mod for java edition, but more simple. It's add a block and an item. This block let you save the location to access from this block, or others teleport blocks in world and dimensions. And the item gives you the possibilites of access the portals in a portable way.
+This addon acts like the [Waystones mod](https://www.curseforge.com/minecraft/mc-mods/waystones) for java edition, but more simple. It's add a block and an item. This block let you save the location to access from this block, or others teleport blocks in world and dimensions. And the item gives you the possibilites of access the portals in a portable way.
 
 ## How it work
 
