@@ -1,5 +1,6 @@
 import { world, Block, Dimension, Vector3, Player } from "@minecraft/server";
-import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { MinecraftBlockTypes } from "@minecraft/vanilla-data";
 
 export const TELEPORTER_STATE: string = "ninguem3421:teleporter_state";
 export const TELEPORTER_PROPERTY: string = "ninguem3421:portals";
@@ -20,6 +21,19 @@ export interface Portal {
     name: string;
     dimensionId: string;
     location: Vector3;
+}
+
+export enum MessageTypeChar {
+    ERROR = 'c',
+    NORMAL = 'a'
+}
+
+export function sendMessage(player: Player, colorChar: MessageTypeChar, translateMessage: string, withArgs: Array<string> = []) {
+    player.sendMessage([
+        { text: `§l§${colorChar}[!]§r §${colorChar[0]}` },
+        { translate: translateMessage, with: withArgs },
+        { text: "§r" }
+    ]);
 }
 
 function isLocationsEquals(loc1: Vector3, loc2: Vector3): boolean {
@@ -60,6 +74,7 @@ export class TeleporterUtils {
     }
 
     public static showLogUI(pm: PortalsManager, player: Player, dimension: Dimension, location: Vector3) {
+        pm.clearInvalidPortals();
         new ModalFormData()
             .title({ translate: "ninguem3421.addportalform.title" })
             .textField(
@@ -85,23 +100,27 @@ export class TeleporterUtils {
                 switch(action) {
                     case AddPortalAction.SUCCESS:
                         let block = dimension.getBlock(location);
-                        if(block === undefined) {
-                            pm.removePortalByLocation(location, dimension);
+                        if(block === undefined || block.typeId == MinecraftBlockTypes.Air) {
+                            pm.removePortalByLocation(location, dimension.id);
+                            sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.addnotpossible.message");
                             return;
                         }
                         TeleporterUtils.setBlockState(block, TeleporterState.LOGGED);
+                        sendMessage(player, MessageTypeChar.NORMAL, "ninguem3421.portaladdedsuccessfully.message", [name]);
                         break;
                     case AddPortalAction.EMPTY_NAME:
-                        player.sendMessage({ translate: "ninguem3421.emptyportalname.message" });
+                        sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.emptyportalname.message");
                         break;
                     case AddPortalAction.HAS_NAME:
-                        player.sendMessage({ translate: "ninguem3421.alreadyhaveportalname.message" });
+                        sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.emptyportalname.message", [name]);
                         break;
                 }
+                pm.clearInvalidPortals();
             });
     }
 
     public static showPortalsUI(pm: PortalsManager, player: Player, itemSource: boolean = false) {
+        pm.clearInvalidPortals();
         let form = new ActionFormData()
             .title({ translate: "ninguem3421.showportalsform.title" });
         
@@ -121,15 +140,27 @@ export class TeleporterUtils {
                 player.startItemCooldown('teleporter_gem', 600);
             }
             let portal = pm.getByIndex(response.selection);
+            if(portal === undefined) {
+                sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.invalidportal.message");
+                return;
+            }
+            let dimension = world.getDimension(portal.dimensionId);
+            let block = dimension.getBlock(portal.location);
+            if(block !== undefined && block.typeId === MinecraftBlockTypes.Air) {
+                pm.removePortalByLocation(portal.location, portal.dimensionId);
+                sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.invalidportal.message");
+                return;
+            }
             player.teleport({
                 x: portal.location.x + 0.5,
-                y: portal.location.y + 1,
+                y: portal.location.y + 1.5,
                 z: portal.location.z + 0.5
             }, {
                 checkForBlocks: true,
-                dimension: world.getDimension(portal.dimensionId)
+                dimension: dimension
             });
         });
+        pm.clearInvalidPortals();
     }
 }
 
@@ -149,12 +180,23 @@ export class PortalsManager {
         world.setDynamicProperty(TELEPORTER_PROPERTY, JSON.stringify(this.data));
     }
 
+    clearInvalidPortals() {
+        this.data = this.data.filter(portal => {
+            let block = world.getDimension(portal.dimensionId).getBlock(portal.location);
+            return block === undefined || block.typeId !== MinecraftBlockTypes.Air;
+        });
+    }
+
     portalCount(): number {
         return this.data.length;
     }
 
     getByIndex(index: number): Portal {
         return this.data[index];
+    }
+
+    getByLocation(loc: Vector3, dimensionId: string): Portal | undefined {
+        return this.data.find(portal => isLocationsEquals(loc, portal.location) && portal.dimensionId === dimensionId);
     }
 
     addPortal(portal: Portal): AddPortalAction {
@@ -169,8 +211,8 @@ export class PortalsManager {
         return AddPortalAction.SUCCESS;
     }
 
-    removePortalByLocation(loc: Vector3, dimension: Dimension): boolean {
-        let newData = this.data.filter(value => !isLocationsEquals(value.location, loc) || value.dimensionId !== dimension.id);
+    removePortalByLocation(loc: Vector3, dimensionId: string): boolean {
+        let newData = this.data.filter(value => !isLocationsEquals(value.location, loc) || value.dimensionId !== dimensionId);
         if(newData.length === this.portalCount()) {
             return false;
         }

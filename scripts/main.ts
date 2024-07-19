@@ -1,16 +1,16 @@
-import { system, world } from "@minecraft/server";
-import { PortalsManager, TELEPORTER_PROPERTY, TeleporterState, TeleporterUtils } from "./lost";
+import { world } from "@minecraft/server";
+import { MessageTypeChar, PortalsManager, sendMessage, TELEPORTER_PROPERTY, TeleporterState, TeleporterUtils } from "./lost";
 
 var pm = new PortalsManager();
 
 world.afterEvents.worldInitialize.subscribe(_ => {
-    // let property = world.getDynamicProperty(TELEPORTER_PROPERTY);
+    let property = world.getDynamicProperty(TELEPORTER_PROPERTY);
     let jsonString = "[]";
-    // if(property === undefined || typeof(property) !== 'string') {
-    pm.load(jsonString);
-    //     return;
-    // }
-    // pm.load(property);
+    if(property === undefined || typeof(property) !== 'string') {
+        pm.load(jsonString);
+        return;
+    }
+    pm.load(property);
 });
 
 world.afterEvents.itemStartUseOn.subscribe(event => {
@@ -60,7 +60,12 @@ world.beforeEvents.playerBreakBlock.subscribe(event => {
     if(teleporterState !== TeleporterState.LOGGED) {
         return;
     }
-    pm.removePortalByLocation(event.block.location, event.block.dimension);
+    let portal = pm.getByLocation(event.block.location, event.block.dimension.id);
+    if(portal === undefined) {
+        return;
+    }
+    sendMessage(event.player, MessageTypeChar.ERROR, "ninguem3421.portalremoved.message", [portal.name]);
+    pm.removePortalByLocation(portal.location, portal.dimensionId);
 });
 
 world.afterEvents.itemUse.subscribe(event => {

@@ -1,12 +1,15 @@
 item.ninguem3421:teleporter_gem=Gema do Teleporte
 
 tile.ninguem3421:teleporter.name=Teleportador
-tile.ninguem3421:active_teleporter.name=Teleportador Ativo
-tile.ninguem3421:logged_teleporter.name=Teleportador Logado
 
-ninguem3421.noportalavaible.message=§c§l[!]§r §cNenhum portal ativo.§r
-ninguem3421.alreadyhaveportalname.message=§c§l[!]§r §cEsse nome ja foi setado.§r
-ninguem3421.emptyportalname.message=§c§l[!]§r §cNomes vazios são inválidos.§r
+ninguem3421.noportalavaible.message=Nenhum portal ativo.
+ninguem3421.alreadyhaveportalname.message=O nome '%s' ja foi setado.
+ninguem3421.emptyportalname.message=Nomes vazios são inválidos.
+
+ninguem3421.portalremoved.message=Portal '%s' removido.
+ninguem3421.portaladdedsuccessfully.message=Portal '%s' adicionado com sucesso.
+ninguem3421.invalidportal.message=Portal inválido.
+ninguem3421.addnotpossible.message=Não foi possível adicionar.
 
 ninguem3421.showportalsform.title=Portais
 

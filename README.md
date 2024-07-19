@@ -20,7 +20,7 @@ When the player interacts with the block for the first time, you actives it, and
 </p>
 
 <p align="center">
-  <img src="res/Show PortalsUi.gif" width="400" alt="Portal Log UI GIF">
+  <img src="res/Show LogUi.gif" width="400" alt="Portal Log UI GIF">
 </p>
 
 Interacting with a registered block or using the gem item, you access the list ui, this list shows all the portals you have registered in your world.

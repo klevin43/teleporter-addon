@@ -4,9 +4,14 @@ tile.ninguem3421:teleporter.name=Teleporter
 tile.ninguem3421:active_teleporter.name=Active Teleporter
 tile.ninguem3421:logged_teleporter.name=Logged Teleporter
 
-ninguem3421.noportalavaible.message=§c§l[!]§r §cNo portal avaible.§r
-ninguem3421.alreadyhaveportalname.message=§c§l[!]§r §cThis portal name has already been set.§r
-ninguem3421.emptyportalname.message=§c§l[!]§r §cEmpty names are invalid.§r
+ninguem3421.noportalavaible.message=No portal avaible.
+ninguem3421.alreadyhaveportalname.message=The name '%s' has already been set.
+ninguem3421.emptyportalname.message=Empty names are invalid.
+
+ninguem3421.portalremoved.message=Portal '%s' removed.
+ninguem3421.portaladdedsuccessfully.message=Added portal '%s' successfully.
+ninguem3421.invalidportal.message=Invalid portal.
+ninguem3421.addnotpossible.message=Was not possible to add.
 
 ninguem3421.showportalsform.title=Portals
 
