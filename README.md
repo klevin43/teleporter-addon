@@ -61,6 +61,12 @@ You can use the portals through dimensions
   <img src="res/Using block to nether.gif" width="400" alt="Using block to nether">
 </p>
 
+You have to turn on the Holiday Creator Features
+
+<p align="center">
+  <img src="res/Holiday Creator Features.jpg" width="400" alt="Holiday Creator Features">
+</p>
+
 ## Crafting
 
 Teleporter gem
