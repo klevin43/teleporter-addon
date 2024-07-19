@@ -1,8 +1,6 @@
 item.ninguem3421:teleporter_gem=Teleporter Gem
 
 tile.ninguem3421:teleporter.name=Teleporter
-tile.ninguem3421:active_teleporter.name=Active Teleporter
-tile.ninguem3421:logged_teleporter.name=Logged Teleporter
 
 ninguem3421.noportalavaible.message=No portal avaible.
 ninguem3421.alreadyhaveportalname.message=The name '%s' has already been set.
