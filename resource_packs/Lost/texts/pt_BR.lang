@@ -2,7 +2,7 @@ item.ninguem3421:teleporter_gem=Gema do Teleporte
 
 tile.ninguem3421:teleporter.name=Teleportador
 
-ninguem3421.noportalavaible.message=Nenhum portal ativo.
+ninguem3421.noportalavailable.message=Nenhum portal disponível.
 ninguem3421.alreadyhaveportalname.message=O nome '%s' ja foi setado.
 ninguem3421.emptyportalname.message=Nomes vazios são inválidos.
 

@@ -2,7 +2,7 @@ item.ninguem3421:teleporter_gem=Teleporter Gem
 
 tile.ninguem3421:teleporter.name=Teleporter
 
-ninguem3421.noportalavaible.message=No portal avaible.
+ninguem3421.noportalavailable.message=No portal available.
 ninguem3421.alreadyhaveportalname.message=The name '%s' has already been set.
 ninguem3421.emptyportalname.message=Empty names are invalid.
 

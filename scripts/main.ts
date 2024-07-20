@@ -38,7 +38,7 @@ world.afterEvents.itemStartUseOn.subscribe(event => {
             break;
         case TeleporterState.LOGGED:
             if(pm.portalCount() <= 0) {
-                event.source.sendMessage({ translate: "ninguem3421.noportalavaible.message" });
+                sendMessage(event.source, MessageTypeChar.ERROR, "ninguem3421.noportalavailable.message");
                 return;
             }
             TeleporterUtils.showPortalsUI(pm, event.source);
@@ -76,7 +76,7 @@ world.afterEvents.itemUse.subscribe(event => {
         return;
     }
     if(pm.portalCount() <= 0) {
-        event.source.sendMessage({ translate: "ninguem3421.noportalavaible.message" });
+        sendMessage(event.source, MessageTypeChar.ERROR, "ninguem3421.noportalavailable.message");
         return;
     }
     TeleporterUtils.showPortalsUI(pm, event.source, true);
