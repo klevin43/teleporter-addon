@@ -30,7 +30,7 @@ export enum MessageTypeChar {
 export function sendMessage(player: Player, colorChar: MessageTypeChar, translateMessage: string, withArgs: Array<string> = []) {
     player.sendMessage([
         { text: `§l§${colorChar}[!]§r §${colorChar[0]}` },
-        { translate: translateMessage, with: withArgs },
+        { translate: translateMessage, with: withArgs.map(str => `${str}§r§${colorChar[0]}`) },
         { text: "§r" }
     ]);
 }
@@ -57,6 +57,19 @@ export function getDimensionName(dimensionId: string): string {
         default:
             return '§cinvalid§r';
     }
+}
+
+function filterName(name: string) {
+    let str = "";
+    for(let i = 0; i < name.length; i++) {
+        let char = name.charAt(i);
+        if(char === "§") {
+            i += 1;
+            continue;
+        }
+        str += char;
+    }
+    return str;
 }
 
 export class TeleporterUtils {
@@ -111,7 +124,7 @@ export class TeleporterUtils {
                         sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.emptyportalname.message");
                         break;
                     case AddPortalAction.HAS_NAME:
-                        sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.emptyportalname.message", [name]);
+                        sendMessage(player, MessageTypeChar.ERROR, "ninguem3421.alreadyhaveportalname.message", [name]);
                         break;
                 }
                 pm.clearInvalidPortals();
@@ -199,10 +212,10 @@ export class PortalsManager {
     }
 
     addPortal(portal: Portal): AddPortalAction {
-        if(portal.name.trim() === "") {
+        if(filterName(portal.name).trim() === "") {
             return AddPortalAction.EMPTY_NAME;
         }
-        if(this.data.find(value => value.name == portal.name) !== undefined) {
+        if(this.data.find(value => filterName(value.name) == filterName(portal.name)) !== undefined) {
             return AddPortalAction.HAS_NAME;
         }
         this.data.push(portal);
