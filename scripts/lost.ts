@@ -46,16 +46,29 @@ function isLocationsEquals(loc1: Vector3, loc2: Vector3): boolean {
     return true;
 }
 
+function getDimensionColorChar(dimensionId: string) {
+    switch(dimensionId) {
+        case 'minecraft:overworld':
+            return '2';
+        case 'minecraft:nether':
+            return '4';
+        case 'minecraft:the_end':
+            return '5';
+        default:
+            return 'c';
+    }
+}
+
 export function getDimensionName(dimensionId: string): string {
     switch(dimensionId) {
         case 'minecraft:overworld':
-            return '§2§lOverworld§r';
+            return `§${getDimensionColorChar(dimensionId)}§lOverworld§r`;
         case 'minecraft:nether':
-            return '§4§lNether§r';
+            return `§${getDimensionColorChar(dimensionId)}§lNether§r`;
         case 'minecraft:the_end':
-            return '§5§lThe end§r';
+            return `§${getDimensionColorChar(dimensionId)}§lThe end§r`;
         default:
-            return '§cinvalid§r';
+            return `§${getDimensionColorChar(dimensionId)}invalid§r`;
     }
 }
 
@@ -131,10 +144,16 @@ export class TeleporterUtils {
             });
     }
 
-    public static showPortalsUI(pm: PortalsManager, player: Player, itemSource: boolean = false) {
+    public static showPortalsUI(pm: PortalsManager, player: Player, dimensionId: string, blockLoc: Vector3 | undefined, itemSource: boolean = false) {
         pm.clearInvalidPortals();
+        let portal = blockLoc !== undefined && !itemSource ? pm.getByLocation(blockLoc, dimensionId) : undefined;
         let form = new ActionFormData()
-            .title({ translate: "ninguem3421.showportalsform.title" });
+            .title({
+                rawtext: [
+                    { translate: "ninguem3421.showportalsform.title" },
+                    { text: portal !== undefined ? ` §${getDimensionColorChar(dimensionId)}§l(§r${portal.name}§r§${getDimensionColorChar(dimensionId)}§l)§r` : '' }
+                ]
+            });
         
         for(let index = 0; index < pm.portalCount(); index++) {
             let portal: Portal = pm.getByIndex(index);

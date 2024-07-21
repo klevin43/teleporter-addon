@@ -41,7 +41,7 @@ world.afterEvents.itemStartUseOn.subscribe(event => {
                 sendMessage(event.source, MessageTypeChar.ERROR, "ninguem3421.noportalavailable.message");
                 return;
             }
-            TeleporterUtils.showPortalsUI(pm, event.source);
+            TeleporterUtils.showPortalsUI(pm, event.source, event.block.dimension.id, event.block.location);
             break;
     }
 });
@@ -79,5 +79,5 @@ world.afterEvents.itemUse.subscribe(event => {
         sendMessage(event.source, MessageTypeChar.ERROR, "ninguem3421.noportalavailable.message");
         return;
     }
-    TeleporterUtils.showPortalsUI(pm, event.source, true);
+    TeleporterUtils.showPortalsUI(pm, event.source, event.source.dimension.id, undefined, true);
 });
